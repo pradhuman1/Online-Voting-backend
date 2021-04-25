@@ -29,7 +29,7 @@ exports.createdb = async function (req, res) {
     try {
         client = await Client();
         //Warning : Dropping sequence is imp as foreign key constraints may interfere
-        // await dropTable('notification');
+        // await dropTable('election');
         // await dropTable('logs');
         // await dropTable('user_table');
         // await dropTable('ldap');
@@ -51,7 +51,8 @@ exports.createdb = async function (req, res) {
         //credentials
         await createTable('CREATE TABLE credentials(user_id VARCHAR(100) NOT NULL PRIMARY KEY,password VARCHAR(100) NOT NULL,admin_level INT);', 'credentials');
 
-        //voters
+        //election
+        await createTable('CREATE TABLE election(election_id VARCHAR(100) NOT NULL PRIMARY KEY,title VARCHAR(100),address VARCHAR(500),active INT);', 'election');
         
         res.status(200).send("DB created");
         await client.release();
