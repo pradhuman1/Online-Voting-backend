@@ -54,6 +54,8 @@ exports.createdb = async function (req, res) {
         //election
         await createTable('CREATE TABLE election(election_id VARCHAR(100) NOT NULL PRIMARY KEY,title VARCHAR(100),address VARCHAR(500),active INT);', 'election');
         
+        //candidate
+        await createTable('CREATE TABLE candidate(candidate_id VARCHAR(100) NOT NULL PRIMARY KEY,election_id VARCHAR(100) REFERENCES election(election_id),name VARCHAR(200),gender VARCHAR(100),party VARCHAR(500),party_logo VARCHAR(500),votes INT);','candidate')
         res.status(200).send("DB created");
         await client.release();
     } catch (err) {
