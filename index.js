@@ -5,10 +5,13 @@ const { listUser } = require('./functionalities/user/listUser.js');
 const { createElection } = require('./functionalities/election/createElection.js');
 const { updateElection } = require('./functionalities/election/permission.js');
 const { removeElection } = require('./functionalities/election/removeElection.js');
+const { listElection } = require('./functionalities/election/listElection.js');
+
 const { results } = require('./functionalities/election/results.js');
 const {createCandidate} = require('./functionalities/candidate/createCandidate.js');
 const {removeCandidate} = require('./functionalities/candidate/removeCandidate.js');
-
+const {listCandidate} = require('./functionalities/candidate/listCandidate.js');
+const {giveVote} = require('./functionalities/voters/giveVote.js')
 
 
 const express = require('express');
@@ -32,9 +35,13 @@ app.post('/user/list', listUser);
 app.post('/election/create', createElection);
 app.post('/election/remove', removeElection);
 app.post('/election/update', updateElection);
+app.post('/election/list', listElection);
 app.post('/election/results', results);
 app.post('/candidate/create', createCandidate);
 app.post('/candidate/remove', removeCandidate);
+app.post('/candidate/list', listCandidate);
+app.post('/givevote', giveVote);
+
 
 
 // app.post('/login', verifyUser);
