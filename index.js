@@ -1,4 +1,5 @@
 const { createdb } = require('./createDatabase.js');
+const { verifyUser } = require('./functionalities/auth/login.js');
 const { createUser } = require('./functionalities/user/createUser');
 const { removeUser } = require('./functionalities/user/removeUser.js');
 const { listUser } = require('./functionalities/user/listUser.js');
@@ -30,6 +31,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/createdb', createdb);
+app.post('/login', verifyUser);
 app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
 app.post('/user/list', listUser);
