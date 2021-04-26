@@ -2,6 +2,7 @@ const { Client } = require('../../utils/db.js');
 
 exports.listElection = async function (req, res) {
     const voter_id = req.body.voter_id;
+    var listElectionQuery = 'SELECT * FROM election';
     var skipElections=[];
     const client = await Client();
     if(voter_id){
@@ -12,9 +13,11 @@ exports.listElection = async function (req, res) {
                 // console.log(skipElections); 
             })
             .catch((err)=>console.log(`${err}`))
+
+        listElectionQuery = 'SELECT * FROM election WHERE active=1';
     }
     await client
-        .query('SELECT * FROM election')
+        .query(listElectionQuery)
         .then(response => {
             for(var i=0;i<response.rows.length;i++){
                 // console.log(response.rows[i])
