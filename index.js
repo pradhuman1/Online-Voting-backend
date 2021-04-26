@@ -11,8 +11,9 @@ const { results } = require('./functionalities/election/results.js');
 const {createCandidate} = require('./functionalities/candidate/createCandidate.js');
 const {removeCandidate} = require('./functionalities/candidate/removeCandidate.js');
 const {listCandidate} = require('./functionalities/candidate/listCandidate.js');
-const {giveVote} = require('./functionalities/voters/giveVote.js')
-
+const {createVote} = require('./functionalities/voters/saveVote.js')
+const {listVoters} = require('./functionalities/poling_agent/listVoters');
+const {verifyVoter} = require('./functionalities/poling_agent/verifyVoter.js');
 
 const express = require('express');
 const app = express();
@@ -40,7 +41,10 @@ app.post('/election/results', results);
 app.post('/candidate/create', createCandidate);
 app.post('/candidate/remove', removeCandidate);
 app.post('/candidate/list', listCandidate);
-app.post('/givevote', giveVote);
+app.post('/savevote', createVote);
+app.post('/poling/listvoters', listVoters);
+app.post('/poling/verify', verifyVoter);
+
 
 
 

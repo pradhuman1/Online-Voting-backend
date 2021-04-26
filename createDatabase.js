@@ -30,18 +30,10 @@ exports.createdb = async function (req, res) {
         client = await Client();
         //Warning : Dropping sequence is imp as foreign key constraints may interfere
         // await dropTable('election');
-        // await dropTable('logs');
-        // await dropTable('user_table');
-        // await dropTable('ldap');
-        // await dropTable('marks');
-        // await dropTable('results');
-        // await dropTable('fees');
-        // await dropTable('disciplinary_actions');
-        // await dropTable('student');
-        // await dropTable('course');
-        // await dropTable('semester');
-        // await dropTable('branch');
-        // await dropTable('program');
+        await dropTable('votes');
+        await dropTable('voter');
+        
+
 
 
 
@@ -56,6 +48,13 @@ exports.createdb = async function (req, res) {
         
         //candidate
         await createTable('CREATE TABLE candidate(candidate_id VARCHAR(100) NOT NULL PRIMARY KEY,election_id VARCHAR(100) REFERENCES election(election_id),name VARCHAR(200),gender VARCHAR(100),party VARCHAR(500),party_logo VARCHAR(500),votes INT);','candidate')
+
+        //voter
+        await createTable('CREATE TABLE voter(voter_id VARCHAR(100) PRIMARY KEY,name VARCHAR(500),dob VARCHAR(100),address VARCHAR(500),phone_number INT,election_id VARCHAR(100) REFERENCES election(election_id),candidate_id VARCHAR(100) REFERENCES candidate(candidate_id));','voter')
+
+        //votes
+        await createTable('CREATE TABLE votes(voter_id VARCHAR(100),election_id VARCHAR(100) REFERENCES election(election_id));','votes');
+
         res.status(200).send("DB created");
         await client.release();
     } catch (err) {
