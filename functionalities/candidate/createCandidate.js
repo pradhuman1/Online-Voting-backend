@@ -9,7 +9,7 @@ exports.createCandidate = async function (req, res) {
     const gender = req.body.gender;
     const party = req.body.party;
     const party_logo = req.body.party_logo;
-    const votes = req.body.votes;
+    const votes = 0;
 
 
     const client = await Client();
