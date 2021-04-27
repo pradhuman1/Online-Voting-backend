@@ -14,12 +14,12 @@ exports.removeUser = async function (req, res) {
             if(resData.rowCount)
             res.status(200).send({msg:"User removed"});
             else
-            res.status(400).send({msg:"User not exist"});
+            res.status(200).send({msg:"User not exist"});
 
         })
         .catch(err => {
             console.error(err);
-            res.status(400).send({msg:"User not found"});
+            res.status(400).send({msg:"Unable to remove User"});
 
         });
     await client.release();
