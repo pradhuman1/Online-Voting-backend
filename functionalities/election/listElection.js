@@ -1,29 +1,46 @@
 const { Client } = require('../../utils/db.js');
 
 exports.listElection = async function (req, res) {
-    const voter_id = req.body.voter_id;
+    const user_id = req.body.user_id;
     var listElectionQuery = 'SELECT * FROM election';
-    var skipElections=[];
+    var focusElections=[];
+    var votableElections=[];
+    var underVerification=[];
     const client = await Client();
-    if(voter_id){
+    if(user_id){
         await client
-            .query('SELECT * from votes WHERE voter_id=$1',[voter_id])
+            .query('SELECT * from votes WHERE user_id=$1',[user_id])
             .then((resData)=>{
-                skipElections = resData.rows;
+                focusElections = resData.rows;
                 // console.log(skipElections); 
             })
             .catch((err)=>console.log(`${err}`))
 
         listElectionQuery = 'SELECT * FROM election WHERE active=1';
     }
+    // console.log(focusElections)
     await client
         .query(listElectionQuery)
         .then(response => {
             for(var i=0;i<response.rows.length;i++){
-                // console.log(response.rows[i])
-                for(var j=0;j<skipElections.length;j++){
-                    if(response.rows[i].election_id===skipElections[j].election_id){
+                // console.log("res : "+response.rows[i].election_id)
+                for(var j=0;j<focusElections.length;j++){
+                    // console.log(response.rows[i].election_id+"   "+focusElections[j].election_id)
+                    // console.log(response.rows[i].election_id===focusElections[j].election_id+" "+focusElections[j].verified)
+                    if(response.rows[i].election_id===focusElections[j].election_id&&focusElections[j].voted===1){
                         response.rows.splice(i,1);
+                        i--;
+                        break;
+                    }else if(response.rows[i].election_id===focusElections[j].election_id&&focusElections[j].verified===0){
+                        underVerification.push(response.rows[i])
+                        // console.log("h")
+                        response.rows.splice(i,1);
+                        i--;
+                        break;
+                    }else if(response.rows[i].election_id===focusElections[j].election_id&&focusElections[j].verified===1){
+                        votableElections.push(response.rows[i])
+                        response.rows.splice(i,1);
+                        i--;
                         break;
                     }
                 }
@@ -32,7 +49,9 @@ exports.listElection = async function (req, res) {
             res
                 .status(200)
                 .json({
-                    elections: response.rows
+                    elections: response.rows,
+                    votableElections : votableElections,
+                    underVerification: underVerification
                 })
                 .end();
 

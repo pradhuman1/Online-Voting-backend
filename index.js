@@ -1,4 +1,6 @@
 const { createdb } = require('./createDatabase.js');
+const { alterTable } = require('./alterTable.js');
+
 const { verifyUser } = require('./functionalities/auth/login.js');
 const { createUser } = require('./functionalities/user/createUser');
 const { removeUser } = require('./functionalities/user/removeUser.js');
@@ -12,7 +14,8 @@ const { results } = require('./functionalities/election/results.js');
 const {createCandidate} = require('./functionalities/candidate/createCandidate.js');
 const {removeCandidate} = require('./functionalities/candidate/removeCandidate.js');
 const {listCandidate} = require('./functionalities/candidate/listCandidate.js');
-const {createVote} = require('./functionalities/voters/saveVote.js')
+const {forVerification} = require('./functionalities/voters/forVerification.js')
+const {giveVote} = require('./functionalities/voters/giveVote.js')
 const {listVoters} = require('./functionalities/poling_agent/listVoters');
 const {verifyVoter} = require('./functionalities/poling_agent/verifyVoter.js');
 
@@ -32,18 +35,25 @@ app.use(function (req, res, next) {
 
 app.get('/createdb', createdb);
 app.post('/login', verifyUser);
+app.get('/altertable', alterTable);
+
 app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
 app.post('/user/list', listUser);
+
 app.post('/election/create', createElection);
 app.post('/election/remove', removeElection);
-app.post('/election/update', updateElection);
+app.post('/election/permission', updateElection);
 app.post('/election/list', listElection);
 app.post('/election/results', results);
+
 app.post('/candidate/create', createCandidate);
 app.post('/candidate/remove', removeCandidate);
 app.post('/candidate/list', listCandidate);
-app.post('/savevote', createVote);
+
+app.post('/voter/forverification', forVerification);
+app.post('/voter/givevote',giveVote)
+
 app.post('/poling/listvoters', listVoters);
 app.post('/poling/verify', verifyVoter);
 
