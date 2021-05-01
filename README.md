@@ -1,17 +1,14 @@
 # Online-Voting-backend
 
-<<<<<<< HEAD
-checking permission
-=======
 ## How To run
 * Download pgadmin version 13.2 from `https://www.enterprisedb.com/downloads/postgres-postgresql-downloads`<br>
 * Run It
 * Make a new server<br>
 ### server config
-`Name : localhost`<br> 
-`Host name/addr : 127.0.0.1`<br> 
-`Port : 5433`<br> 
-`Password : password`<br> 
+`Name : localhost`<br>
+`Host name/addr : 127.0.0.1`<br>
+`Port : 5433`<br>
+`Password : password`<br>
 HIT SAVE
 
 ### make database
@@ -29,4 +26,3 @@ HIT SAVE
 * `npm i nodemon`
 * `npm i cors`
 * `nodemon index.js`
->>>>>>> e54703797637a6c168715528ef1a6a53a7b9820d
