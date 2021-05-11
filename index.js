@@ -9,7 +9,7 @@ const { createElection } = require('./functionalities/election/createElection.js
 const { updateElection } = require('./functionalities/election/permission.js');
 const { removeElection } = require('./functionalities/election/removeElection.js');
 const { listElection } = require('./functionalities/election/listElection.js');
-
+const { fillDummydata } = require('./dummydata.js');
 const { results } = require('./functionalities/election/results.js');
 const {createCandidate} = require('./functionalities/candidate/createCandidate.js');
 const {removeCandidate} = require('./functionalities/candidate/removeCandidate.js');
@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 app.get('/createdb', createdb);
 app.post('/login', verifyUser);
 app.get('/altertable', alterTable);
-
+app.get('/filldummydata', fillDummydata);
 app.post('/user/create', createUser);
 app.post('/user/remove', removeUser);
 app.post('/user/list', listUser);

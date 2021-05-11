@@ -26,3 +26,6 @@ HIT SAVE
 * `npm i nodemon`
 * `npm i cors`
 * `nodemon index.js`
+* For creating database open the link http://localhost:5440/createdb
+* For filling dummy data open the link http://localhost:5440/filldummydata
+
